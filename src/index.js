@@ -134,7 +134,7 @@ const CasualQuiz = ({
       { questionIndex > questions.length - 1 && showSource && (
       <React.Fragment>
         <hr />
-        <small><a href="https://github.com/smycynek/quiz">https://github.com/smycynek/quiz</a></small>
+        <small><a href="https://github.com/smycynek/react-casual-quiz">https://github.com/smycynek/react-casual-quiz</a></small>
       </React.Fragment>
       )}
     </div>
