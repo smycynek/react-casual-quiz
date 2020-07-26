@@ -1,0 +1,34 @@
+
+h1,h2,h3,h4,p,span,button,body {
+  font-family: 'Roboto', sans-serif;
+}
+
+li{
+  padding-left: 0px;
+  padding-top: 10px;
+  padding-bottom: 0px;
+  margin: 0px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.slim {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin: 5px;
+}
+
+ol{
+  padding-left: 0px;
+}
+
+@media(hover: hover) and (pointer: fine) {
+  li:hover {
+      font-weight: bold;
+  }
+}
+
+.App {
+  margin:30px;
+  font-family: 'Roboto', sans-serif;
+}
+
