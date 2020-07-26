@@ -49,7 +49,6 @@ const questions = [
 import CasualQuiz from 'react-casual-quiz/lib';
 
   <CasualQuiz
-      class="App"
       title={title}
       results={results}
       questions={questions}
