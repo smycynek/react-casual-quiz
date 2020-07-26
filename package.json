@@ -29,15 +29,21 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^4.0.0",
-    "webpack": "^4.5.0",
-    "webpack-cli": "^3.2.1",
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "path": "^0.12.7",
     "style-loader": "^1.2.1",
-    "path": "^0.12.7"
+    "webpack": "^4.5.0",
+    "webpack-cli": "^3.2.1"
   },
   "dependencies": {
     "bootstrap": "^4.5.0",
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "prop-types": "^15.6.0"
+    "react-dom": "^16.0.0"
   }
 }

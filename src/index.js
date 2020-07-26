@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-fragments */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
@@ -11,8 +12,13 @@ const CasualQuiz = ({
   title, questions, results, showSource,
 }) => {
   const [questionIndex, setQuestionIndex] = useState(0);
+
+  // maintains count of answer indicies ({1:5} = five "B" answers)
   const [answers, setAnswers] = useState({});
 
+  // Validates props in more detail -- making sure questions
+  // have the same number of choices and match the number of
+  // result objects
   const validateInput = () => {
     const firstChoiceLength = questions[0].Choices.length;
     const allEqual = questions.every((q) => q.Choices.length === firstChoiceLength);
@@ -24,6 +30,8 @@ const CasualQuiz = ({
     }
   };
 
+  /// Looks at the answers object and determines the result index
+  /// corresponding to what is displayed at the end of the quiz
   const getWinnerIndex = () => {
     const keys = Object.keys(answers);
     const max = Math.max(...Object.values(answers));
@@ -31,17 +39,22 @@ const CasualQuiz = ({
     return keys[index];
   };
 
+  // Gets choice index from selected list item text
   const getIndexValueFromChoice = (str) => {
     const choices = questions[questionIndex].Choices;
     const choiceIndex = choices.findIndex((c) => c === str);
     return choiceIndex.toString();
   };
+
   const getQuestion = () => {
     if (questionIndex >= questions.length) {
       return null;
     }
     return questions[questionIndex];
   };
+
+  // We add a slight delay so the user can
+  // See the radio button animation  
   const onItemClickHandler = (e) => {
     let choice = e.target.textContent;
     if (!choice) { // if user clicks radio button rather than text
@@ -50,6 +63,8 @@ const CasualQuiz = ({
     setTimeout(() => {
       const indexValue = getIndexValueFromChoice(choice);
       setAnswers((prevAnswers) => {
+        // Build an object of answer-index -> count
+        // pairs with each question answered
         const prevAnswersCopy = {};
         Object.assign(prevAnswersCopy, prevAnswers);
         if (prevAnswersCopy[indexValue] === undefined) {
@@ -108,7 +123,7 @@ const CasualQuiz = ({
      <ol style={{ listStyle: 'none' }}>
        {listChoices(getQuestion())}
      </ol>
-     </React.Fragment>
+   </React.Fragment>
    )}
 
       {(questionIndex > questions.length - 1
