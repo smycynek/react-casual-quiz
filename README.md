@@ -12,37 +12,39 @@ npm -i react-casual-quiz
 ```html
   <CasualQuiz
       class="App"
-      title={title}
+      title="your quiz title"
       results={results}
       questions={questions}
       showSource
     />
 ```
 
+## props
+
 ```javascript
-props:
 
-title : "Some title"
+const title = "Some title";
 
-results :[
-{
-    name: 'result 1',
-    description: 'result 1 description',
-    image: someImporteImage1,
-}
-,
-...
-]
+const results = [
+  {
+    name: 'You are a type "q" personality...',
+    description: 'you are strong, thoughtful, and insightful...',
+    image: someImportedImage1,
+  },
+  ...
+];
 
-questions: {
-  [
-    {
-    question: "question1",
-    choices: ["choice1", "choice2", ...]
-    },
-    ...
-  ]
-}
+// Result count must equal choice count, and all questions
+// must have the same number of choices.
+
+const questions = [
+  {
+    question: "What do you like to do for fun?",
+    choices: ["video games", "draw", ... ]
+  },
+  ...
+];
+
 ```
 
 See https://github.com/smycynek/quiz for more usage details
