@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/jsx-fragments */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -54,12 +55,8 @@ const CasualQuiz = ({
   };
 
   // We add a slight delay so the user can
-  // See the radio button animation  
-  const onItemClickHandler = (e) => {
-    let choice = e.target.textContent;
-    if (!choice) { // if user clicks radio button rather than text
-      choice = e.currentTarget.textContent;
-    }
+  // See the radio button animation
+  const onItemClickHandler = (choice) => {
     setTimeout(() => {
       const indexValue = getIndexValueFromChoice(choice);
       setAnswers((prevAnswers) => {
@@ -74,7 +71,7 @@ const CasualQuiz = ({
         }
         return prevAnswersCopy;
       });
-      setQuestionIndex((prevIndex) => prevIndex + 1);
+      setQuestionIndex(questionIndex + 1);
     }, 300);
   };
 
@@ -85,9 +82,11 @@ const CasualQuiz = ({
 
   const listChoices = (question) => ((question === null) ? <li>None</li>
     : question.Choices.map((choice) => (
-      <li style={{ fontSize: 'larger' }} key={`choice${Math.random().toString().substring(2)}`} onClick={onItemClickHandler}>
-        <input className="slim" type="radio" value={choice} />
-        {choice}
+      <li style={{ fontSize: 'larger' }} key={`choice${Math.random().toString().substring(2)}`}>
+        <label>
+          {choice}
+          <input onChange={() => onItemClickHandler(choice)} className="slim" type="radio" value={choice} />
+        </label>
       </li>
     )));
 

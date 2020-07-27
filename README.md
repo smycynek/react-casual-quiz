@@ -20,12 +20,12 @@ const title = "What is your personality?";
 
 const results = [
   {
-    name: 'You are a type "q" personality...',
+    name: 'type "q" personality...',
     description: 'You are strong, thoughtful, and insightful...',
     image: someImportedImage1,
   },
   {
-    name: 'You are a type "z" personality...',
+    name: 'type "z" personality...',
     description: 'You are skilled, zany, and creative...',
     image: someImportedImage2,
   },
