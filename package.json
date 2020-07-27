@@ -1,6 +1,6 @@
 {
   "name": "react-casual-quiz",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "A simple quiz react component",
   "main": "index.js",
   "scripts": {

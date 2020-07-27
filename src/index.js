@@ -84,8 +84,8 @@ const CasualQuiz = ({
     : question.Choices.map((choice) => (
       <li style={{ fontSize: 'larger' }} key={`choice${Math.random().toString().substring(2)}`}>
         <label>
-          {choice}
           <input onChange={() => onItemClickHandler(choice)} className="slim" type="radio" value={choice} />
+          {choice}
         </label>
       </li>
     )));
