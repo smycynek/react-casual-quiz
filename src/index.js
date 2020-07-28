@@ -4,7 +4,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -30,6 +30,10 @@ const CasualQuiz = ({
       throw new Error('The number of choices per question must equal the number of result objects.');
     }
   };
+
+  useEffect(() => {
+    validateInput();
+  }, []);
 
   /// Looks at the answers object and determines the result index
   /// corresponding to what is displayed at the end of the quiz
@@ -90,8 +94,10 @@ const CasualQuiz = ({
       </li>
     )));
 
-  validateInput();
-  const result = results[getWinnerIndex()];
+  let result = results[0];
+  if (questionIndex > questions.length - 1) {
+    result = results[getWinnerIndex()];
+  }
 
   return (
 
