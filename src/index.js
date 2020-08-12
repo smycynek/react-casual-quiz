@@ -4,15 +4,23 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
+export const useCounter = (initial) => {
+  const [count, setCount] = useState(initial);
+  return [count,
+    useCallback(() => setCount((countVal) => countVal + 1)),
+    useCallback(() => setCount(() => 0)),
+  ];
+};
+
 const CasualQuiz = ({
   title, questions, results, showSource,
 }) => {
-  const [questionIndex, setQuestionIndex] = useState(0);
+  const [questionIndex, incrementIndex, resetIndex] = useCounter(0);
 
   // maintains count of answer indicies ({1:5} = five "B" answers)
   const [answers, setAnswers] = useState({});
@@ -75,12 +83,12 @@ const CasualQuiz = ({
         }
         return prevAnswersCopy;
       });
-      setQuestionIndex(questionIndex + 1);
+      incrementIndex(questionIndex + 1);
     }, 300);
   };
 
   const handleReset = () => {
-    setQuestionIndex(0);
+    resetIndex();
     setAnswers({});
   };
 
