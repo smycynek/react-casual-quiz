@@ -4,7 +4,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/jsx-filename-extension */
-import React, { useState, useEffect, useDebugValue, useCallback } from 'react';
+import React, {
+  useState, useEffect, useDebugValue, useReducer,
+} from 'react';
 import PropTypes from 'prop-types';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -13,8 +15,8 @@ export const useCounter = (initial) => {
   const [count, setCount] = useState(initial);
   useDebugValue(count ? 'In progress' : 'Reset/Initial');
   return [count,
-    useCallback(() => setCount((countVal) => countVal + 1)),
-    useCallback(() => setCount(() => 0)),
+    () => setCount((countVal) => countVal + 1),
+    () => setCount(() => 0),
   ];
 };
 
@@ -22,10 +24,25 @@ const CasualQuiz = ({
   title, questions, results, showSource,
 }) => {
   const [questionIndex, incrementIndex, resetIndex] = useCounter(0);
+  const initialState = {};
+  // eslint-disable-next-line no-return-assign
+  [...Array(results.length).keys()].forEach((i) => initialState[i] = 0);
+  const answerReducer = (answers, { type, payload }) => {
+    switch (type) {
+      case 'addAnswer':
+        // eslint-disable-next-line no-case-declarations
+        const retval = { ...answers };
+        retval[payload] = answers[payload] + 1;
+        return retval;
+      case 'reset':
+        return initialState;
+      default:
+        throw new Error();
+    }
+  };
 
   // maintains count of answer indicies ({1:5} = five "B" answers)
-  const [answers, setAnswers] = useState({});
-
+  const [answers, dispatch] = useReducer(answerReducer, initialState);
   // Validates props in more detail -- making sure questions
   // have the same number of choices and match the number of
   // result objects
@@ -42,6 +59,7 @@ const CasualQuiz = ({
 
   useEffect(() => {
     validateInput();
+    // eslint-disable-next-line
   }, []);
 
   /// Looks at the answers object and determines the result index
@@ -72,25 +90,14 @@ const CasualQuiz = ({
   const onItemClickHandler = (choice) => {
     setTimeout(() => {
       const indexValue = getIndexValueFromChoice(choice);
-      setAnswers((prevAnswers) => {
-        // Build an object of answer-index -> count
-        // pairs with each question answered
-        const prevAnswersCopy = {};
-        Object.assign(prevAnswersCopy, prevAnswers);
-        if (prevAnswersCopy[indexValue] === undefined) {
-          prevAnswersCopy[indexValue] = 1;
-        } else {
-          prevAnswersCopy[indexValue] = Number(prevAnswersCopy[indexValue]) + 1;
-        }
-        return prevAnswersCopy;
-      });
+      dispatch({ type: 'addAnswer', payload: indexValue });
       incrementIndex(questionIndex + 1);
     }, 300);
   };
 
   const handleReset = () => {
     resetIndex();
-    setAnswers({});
+    dispatch({ type: 'reset' });
   };
 
   const listChoices = (question) => ((question === null) ? <li>None</li>
