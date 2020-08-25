@@ -21,7 +21,7 @@ export const useCounter = (initial) => {
 };
 
 const CasualQuiz = ({
-  title, questions, results, showSource,
+  name, questions, results, showSource,
 }) => {
   const [questionIndex, incrementIndex, resetIndex] = useCounter(0);
   const initialState = {};
@@ -47,8 +47,8 @@ const CasualQuiz = ({
   // have the same number of choices and match the number of
   // result objects
   const validateInput = () => {
-    const firstChoiceLength = questions[0].Choices.length;
-    const allEqual = questions.every((q) => q.Choices.length === firstChoiceLength);
+    const firstChoiceLength = questions[0].choices.length;
+    const allEqual = questions.every((q) => q.choices.length === firstChoiceLength);
     if (!allEqual) {
       throw new Error('All questions must have the same number of choices.');
     }
@@ -73,8 +73,8 @@ const CasualQuiz = ({
 
   // Gets choice index from selected list item text
   const getIndexValueFromChoice = (str) => {
-    const choices = questions[questionIndex].Choices;
-    const choiceIndex = choices.findIndex((c) => c === str);
+    const questionChoices = questions[questionIndex].choices;
+    const choiceIndex = questionChoices.findIndex((c) => c === str);
     return choiceIndex.toString();
   };
 
@@ -101,7 +101,7 @@ const CasualQuiz = ({
   };
 
   const listChoices = (question) => ((question === null) ? <li>None</li>
-    : question.Choices.map((choice) => (
+    : question.choices.map((choice) => (
       <li style={{ fontSize: 'larger' }} key={`choice${Math.random().toString().substring(2)}`}>
         <label>
           <input onChange={() => onItemClickHandler(choice)} className="slim" type="radio" value={choice} />
@@ -121,7 +121,7 @@ const CasualQuiz = ({
 
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet" />
 
-      <h1 className="text-primary">{title}</h1>
+      <h1 className="text-primary">{name}</h1>
       { questionIndex < questions.length && (
       <h4 className="text-secondary">Take this quiz to find out!</h4>)}
       { questionIndex < questions.length && (
@@ -139,7 +139,7 @@ const CasualQuiz = ({
    <React.Fragment>
      <p className="text-info" style={{ fontSize: '1.3em' }}>
        {' '}
-       {getQuestion().Question}
+       {getQuestion().text}
      </p>
      <ol style={{ listStyle: 'none' }}>
        {listChoices(getQuestion())}
@@ -179,7 +179,7 @@ const CasualQuiz = ({
 };
 
 CasualQuiz.propTypes = {
-  title: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
   questions: PropTypes.array.isRequired,
   results: PropTypes.array.isRequired,
   showSource: PropTypes.bool,
