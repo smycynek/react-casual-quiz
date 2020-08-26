@@ -158,10 +158,12 @@ const CasualQuiz = ({
           {' '}
           {result.name}
           .
-          <div>
-            <img width="200px" src={result.image} alt={result.name} />
+          { result.image && (
+            <div>
+              <img width="200px" src={result.image} alt={result.name} />
+            </div>
+          )}
 
-          </div>
         </h3>
         <button className="btn btn-primary" onClick={handleReset} type="button">Try Again</button>
       </React.Fragment>
