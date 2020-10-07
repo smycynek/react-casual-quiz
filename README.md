@@ -3,7 +3,7 @@ A simple quiz react component
 
 Just supply questions, scoring results, and images.
 
-Live demo at https://stevenvictor.net/quiz
+Live demo at https://stevenvictor.net/quizwiz
 
 ## Usage
 
@@ -60,4 +60,4 @@ https://www.npmjs.com/package/react-casual-quiz
 
 https://github.com/smycynek/react-casual-quiz
 
-See https://github.com/smycynek/quiz for full example.
+See https://github.com/smycynek/quizwiz for full example.
