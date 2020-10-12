@@ -163,7 +163,9 @@ const CasualQuiz = ({
           )}
 
         </h4>
-        <button className="btn btn-primary" onClick={handleReset} type="button">Try Again</button>
+        <div className="ButtonWrapper">
+          <button className="btn btn-primary" onClick={handleReset} type="button">Try Again</button>
+        </div>
       </React.Fragment>
       )
       )}
