@@ -117,11 +117,9 @@ const CasualQuiz = ({
 
   return (
 
-    <div className="App">
+    <div className="container-fluid">
 
-      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet" />
-
-      <h1 className="text-primary">{name}</h1>
+      <h1 id="title" className="text-primary">{name}</h1>
       { questionIndex < questions.length && (
       <h4 className="text-secondary">Take this quiz to find out!</h4>)}
       { questionIndex < questions.length && (
@@ -137,11 +135,11 @@ const CasualQuiz = ({
       { getQuestion()
    && (
    <React.Fragment>
-     <p className="text-info" style={{ fontSize: '1.3em' }}>
+     <p className="text-primary" style={{ fontSize: '1.3em' }}>
        {' '}
        {getQuestion().text}
      </p>
-     <ol style={{ listStyle: 'none' }}>
+     <ol className="ChoiceList">
        {listChoices(getQuestion())}
      </ol>
    </React.Fragment>
@@ -150,10 +148,10 @@ const CasualQuiz = ({
       {(questionIndex > questions.length - 1
       && (
       <React.Fragment>
-        <h3 className="text-info">
+        <h4>
           {result.description}
-        </h3>
-        <h3 className="text-secondary">
+        </h4>
+        <h4 className="text-secondary">
           You are definitely
           {' '}
           {result.name}
@@ -164,7 +162,7 @@ const CasualQuiz = ({
             </div>
           )}
 
-        </h3>
+        </h4>
         <button className="btn btn-primary" onClick={handleReset} type="button">Try Again</button>
       </React.Fragment>
       )
